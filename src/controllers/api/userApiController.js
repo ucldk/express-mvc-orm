@@ -1,14 +1,14 @@
-import { users } from '../../data/users.js';
+const { users } = require('../../data/users');
 
 const findUser = (id) => users.find((user) => user.id === Number(id));
 
 const getNextId = () => Math.max(0, ...users.map((user) => user.id)) + 1;
 
-export const getUsers = (req, res) => {
+const getUsers = (req, res) => {
   res.json(users);
 };
 
-export const getUserById = (req, res) => {
+const getUserById = (req, res) => {
   const user = findUser(req.params.id);
 
   if (!user) {
@@ -18,7 +18,7 @@ export const getUserById = (req, res) => {
   res.json(user);
 };
 
-export const createUser = (req, res) => {
+const createUser = (req, res) => {
   const { name, email } = req.body;
 
   if (!name || !email) {
@@ -31,7 +31,7 @@ export const createUser = (req, res) => {
   res.status(201).json(user);
 };
 
-export const updateUser = (req, res) => {
+const updateUser = (req, res) => {
   const user = findUser(req.params.id);
 
   if (!user) {
@@ -50,7 +50,7 @@ export const updateUser = (req, res) => {
   res.json(user);
 };
 
-export const deleteUser = (req, res) => {
+const deleteUser = (req, res) => {
   const user = findUser(req.params.id);
 
   if (!user) {
@@ -60,4 +60,12 @@ export const deleteUser = (req, res) => {
   users.splice(users.indexOf(user), 1);
 
   res.status(204).end();
+};
+
+module.exports = {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
 };

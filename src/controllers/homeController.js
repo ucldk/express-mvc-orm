@@ -1,3 +1,5 @@
-export const showHome = (req, res) => {
+const showHome = (req, res) => {
   res.render('home', { title: 'Home' });
 };
+
+module.exports = { showHome };

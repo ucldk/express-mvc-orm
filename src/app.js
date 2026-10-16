@@ -1,7 +1,7 @@
-import express from 'express';
-import { engine } from 'express-handlebars';
-import viewRoutes from './routes/index.js';
-import apiRoutes from './routes/api.js';
+const express = require('express');
+const { engine } = require('express-handlebars');
+const viewRoutes = require('./routes/index');
+const apiRoutes = require('./routes/api');
 
 const app = express();
 
@@ -16,4 +16,4 @@ app.use(express.static('./src/public'));
 app.use('/api', apiRoutes);
 app.use('/', viewRoutes);
 
-export default app;
+module.exports = app;
