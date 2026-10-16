@@ -1,0 +1,20 @@
+<h1>{{title}}</h1>
+
+<ul id="user-list"></ul>
+
+<script>
+  const userList = document.querySelector('#user-list');
+
+  const showUsers = async () => {
+    const response = await fetch('/api/users');
+    const users = await response.json();
+
+    for (const user of users) {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${user.name} (${user.email})`;
+      userList.append(listItem);
+    }
+  };
+
+  showUsers();
+</script>
