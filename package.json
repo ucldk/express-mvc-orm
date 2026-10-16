@@ -1,0 +1,26 @@
+{
+  "name": "express-mvc-orm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ucldk/express-mvc-orm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/ucldk/express-mvc-orm/issues"
+  },
+  "homepage": "https://github.com/ucldk/express-mvc-orm#readme",
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-handlebars": "^9.0.2"
+  }
+}
