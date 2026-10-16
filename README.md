@@ -77,7 +77,7 @@ The project is prepared for Sequelize, but it is not installed yet. `.sequelizer
 
 | Setting         | Path                     |
 | --------------- | ------------------------ |
-| config          | `src/config/database.js` |
+| config          | `src/config/database.json` |
 | models-path     | `src/models`             |
 | migrations-path | `db/migrations`          |
 | seeders-path    | `db/seeders`             |
