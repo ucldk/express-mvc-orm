@@ -1,0 +1,40 @@
+<h1>{{title}}</h1>
+
+<ul id="user-list"></ul>
+
+<script>
+  const userList = document.querySelector('#user-list');
+
+  const deleteUser = async (id) => {
+    await fetch(`/api/users/${id}`, { method: 'DELETE' });
+    showUsers();
+  };
+
+  const showUsers = async () => {
+    const response = await fetch('/api/users');
+    const users = await response.json();
+
+    userList.innerHTML = '';
+
+    for (const user of users) {
+      const listItem = document.createElement('li');
+
+      const link = document.createElement('a');
+      link.href = `/users/${user.id}`;
+      link.textContent = user.name;
+
+      const editLink = document.createElement('a');
+      editLink.href = `/users/${user.id}/edit`;
+      editLink.textContent = 'Edit';
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', () => deleteUser(user.id));
+
+      listItem.append(link, ` (${user.email}) `, editLink, ' ', deleteButton);
+      userList.append(listItem);
+    }
+  };
+
+  showUsers();
+</script>

@@ -1,0 +1,44 @@
+<h1>{{title}}</h1>
+
+<form id="user-form">
+  <label>
+    Name
+    <input type="text" name="name" required>
+  </label>
+
+  <label>
+    Email
+    <input type="email" name="email" required>
+  </label>
+
+  <button type="submit">Create</button>
+</form>
+
+<p id="error-message"></p>
+
+<script>
+  const userForm = document.querySelector('#user-form');
+  const errorMessage = document.querySelector('#error-message');
+
+  userForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: userForm.name.value,
+        email: userForm.email.value,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      errorMessage.textContent = data.error;
+      return;
+    }
+
+    const user = await response.json();
+    window.location.href = `/users/${user.id}`;
+  });
+</script>

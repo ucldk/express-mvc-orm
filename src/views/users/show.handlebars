@@ -1,0 +1,40 @@
+<h1>{{title}}</h1>
+
+<div id="user-details"></div>
+
+<p>
+  <a href="/users/{{id}}/edit">Edit</a>
+  <button id="delete-button">Delete</button>
+</p>
+
+<script>
+  const userId = '{{id}}';
+  const userDetails = document.querySelector('#user-details');
+  const deleteButton = document.querySelector('#delete-button');
+
+  const showUser = async () => {
+    const response = await fetch(`/api/users/${userId}`);
+
+    if (!response.ok) {
+      userDetails.textContent = 'User not found';
+      return;
+    }
+
+    const user = await response.json();
+
+    const name = document.createElement('p');
+    name.textContent = `Name: ${user.name}`;
+
+    const email = document.createElement('p');
+    email.textContent = `Email: ${user.email}`;
+
+    userDetails.append(name, email);
+  };
+
+  deleteButton.addEventListener('click', async () => {
+    await fetch(`/api/users/${userId}`, { method: 'DELETE' });
+    window.location.href = '/users';
+  });
+
+  showUser();
+</script>

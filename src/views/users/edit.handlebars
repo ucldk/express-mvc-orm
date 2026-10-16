@@ -1,0 +1,59 @@
+<h1>{{title}}</h1>
+
+<form id="user-form">
+  <label>
+    Name
+    <input type="text" name="name" required>
+  </label>
+
+  <label>
+    Email
+    <input type="email" name="email" required>
+  </label>
+
+  <button type="submit">Save</button>
+</form>
+
+<p id="error-message"></p>
+
+<script>
+  const userId = '{{id}}';
+  const userForm = document.querySelector('#user-form');
+  const errorMessage = document.querySelector('#error-message');
+
+  const fillForm = async () => {
+    const response = await fetch(`/api/users/${userId}`);
+
+    if (!response.ok) {
+      errorMessage.textContent = 'User not found';
+      return;
+    }
+
+    const user = await response.json();
+    userForm.name.value = user.name;
+    userForm.email.value = user.email;
+  };
+
+  userForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const response = await fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: userForm.name.value,
+        email: userForm.email.value,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      errorMessage.textContent = data.error;
+      return;
+    }
+
+    window.location.href = `/users/${userId}`;
+  });
+
+  fillForm();
+</script>
